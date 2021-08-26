@@ -1,5 +1,5 @@
 import React from 'react';
-import { ObjectMap, useLoader } from 'react-three-fiber';
+import { ObjectMap, useLoader } from '@react-three/fiber';
 import * as THREE from 'three';
 import { GLTF, GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 

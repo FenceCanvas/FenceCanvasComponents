@@ -4,14 +4,27 @@
   "author": {
     "name": "Alex Hill"
   },
-  "keywords": ["React", "Components", "Fence", "Canvas", "FenceCanvas"],
-  "version": "1.0.0",
+  "keywords": [
+    "React",
+    "Components",
+    "Fence",
+    "Canvas",
+    "FenceCanvas"
+  ],
+  "version": "1.0.1",
   "private": false,
   "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FenceCanvas/FenceCanvasComponents.git"
+  },
+  "license": "MIT",
   "dependencies": {
     "@babel/polyfill": "^7.12.1",
     "@material-ui/core": "^4.12.3",
     "@react-three/drei": "^7.5.0",
+    "@react-three/fiber": "^7.0.6",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
@@ -23,7 +36,6 @@
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-scripts": "4.0.3",
-    "react-three-fiber": "^6.0.13",
     "three": "^0.131.3",
     "typescript": "^4.3.5",
     "web-vitals": "^1.1.2"
@@ -32,7 +44,7 @@
     "start": "react-scripts start",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "build": "rm -rf dist && NODE_ENV=production babel src/lib --out-dir dist --copy-files --extensions '.ts,.tsx'"
+    "build": "rm -rf dist && NODE_ENV=production babel src/lib --out-dir dist --copy-files --extensions '.ts,.tsx' && tsc"
   },
   "eslintConfig": {
     "extends": [

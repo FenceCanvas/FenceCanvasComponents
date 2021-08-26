@@ -23,13 +23,13 @@ const useStyles = makeStyles(() =>
 export interface ObjectUploadProps {
 	open: boolean;
 	onClose: () => void;
-	onUpload: (filePath: string) => void;
 }
 
-const ObjectUpload = ({ open, onClose, onUpload }: ObjectUploadProps): React.ReactElement => {
+const ObjectUpload = ({ open, onClose }: ObjectUploadProps): React.ReactElement => {
 	const classes = useStyles();
 
 	const [file, setFile] = useState<File>();
+	const [filePath, setFilePath] = useState<string>();
 
 	const handleDialogClose = (): void => {
 		onClose();
@@ -41,7 +41,7 @@ const ObjectUpload = ({ open, onClose, onUpload }: ObjectUploadProps): React.Rea
 
 	useEffect(() => {
 		if (file) {
-			onUpload(URL.createObjectURL(file));
+			setFilePath(URL.createObjectURL(file));
 			setFile(undefined);
 		}
 	}, [file]);
@@ -61,7 +61,9 @@ const ObjectUpload = ({ open, onClose, onUpload }: ObjectUploadProps): React.Rea
 						dropzoneClass={classes.dropzone}
 					/>
 					<Suspense fallback={null}>
-						<ObjectPreview />
+						{filePath && (
+							<ObjectPreview objectPath={filePath} />
+						)}
 					</Suspense>
 				</DialogContent>
 				<DialogActions>
