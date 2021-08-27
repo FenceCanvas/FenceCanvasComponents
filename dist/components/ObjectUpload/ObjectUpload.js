@@ -11,7 +11,8 @@ const useStyles = makeStyles(() => createStyles({
 
 const ObjectUpload = ({
   open,
-  onClose
+  onClose,
+  onUpload
 }) => {
   const classes = useStyles();
   const [file, setFile] = useState();
@@ -21,6 +22,10 @@ const ObjectUpload = ({
     onClose();
   };
 
+  const handleUploadClick = () => {
+    onUpload(file);
+  };
+
   const handleFileUpload = files => {
     setFile(files[0]);
   };
@@ -28,7 +33,6 @@ const ObjectUpload = ({
   useEffect(() => {
     if (file) {
       setFilePath(URL.createObjectURL(file));
-      setFile(undefined);
     }
   }, [file]);
   return <>
@@ -42,7 +46,7 @@ const ObjectUpload = ({
 				</DialogContent>
 				<DialogActions>
 					<Button color='secondary' onClick={handleDialogClose}>Cancel</Button>
-					<Button color='primary'>Upload</Button>
+					<Button color='primary' onClick={handleUploadClick}>Upload</Button>
 				</DialogActions>
 			</Dialog>
 		</>;

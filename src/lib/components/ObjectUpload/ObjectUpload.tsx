@@ -23,9 +23,10 @@ const useStyles = makeStyles(() =>
 export interface ObjectUploadProps {
 	open: boolean;
 	onClose: () => void;
+	onUpload: (file: File | undefined) => void;
 }
 
-const ObjectUpload = ({ open, onClose }: ObjectUploadProps): React.ReactElement => {
+const ObjectUpload = ({ open, onClose, onUpload }: ObjectUploadProps): React.ReactElement => {
 	const classes = useStyles();
 
 	const [file, setFile] = useState<File>();
@@ -35,6 +36,10 @@ const ObjectUpload = ({ open, onClose }: ObjectUploadProps): React.ReactElement 
 		onClose();
 	};
 
+	const handleUploadClick = (): void => {
+		onUpload(file);
+	};
+
 	const handleFileUpload = (files: File[]): void => {
 		setFile(files[0]);
 	};
@@ -42,7 +47,6 @@ const ObjectUpload = ({ open, onClose }: ObjectUploadProps): React.ReactElement 
 	useEffect(() => {
 		if (file) {
 			setFilePath(URL.createObjectURL(file));
-			setFile(undefined);
 		}
 	}, [file]);
 
@@ -68,7 +72,7 @@ const ObjectUpload = ({ open, onClose }: ObjectUploadProps): React.ReactElement 
 				</DialogContent>
 				<DialogActions>
 					<Button color='secondary' onClick={handleDialogClose}>Cancel</Button>
-					<Button color='primary'>Upload</Button>
+					<Button color='primary' onClick={handleUploadClick}>Upload</Button>
 				</DialogActions>
 			</Dialog>
 		</>

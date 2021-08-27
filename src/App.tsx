@@ -1,24 +1,26 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState } from 'react';
+import { ObjectUpload } from './lib';
 import './App.css';
 
-const App = (): React.ReactElement => (
-  <div className="App">
-    <header className="App-header">
-      <img src={logo} className="App-logo" alt="logo" />
-      <p>
-        Edit <code>src/App.tsx</code> and save to reload.
-      </p>
-      <a
-        className="App-link"
-        href="https://reactjs.org"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Learn React
-      </a>
-    </header>
-  </div>
-);
+const App = (): React.ReactElement => {
+  const [showObjectUpload, setShowObjectUpload] = useState<boolean>(true);
+  const [fileName, setFileName] = useState<string>('');
+
+  const handleObjectUploadClose = (): void => {
+    setShowObjectUpload(!showObjectUpload);
+  };
+
+  const handleObjectUpload = (file: File): void => {
+    setFileName(file.name);
+  };
+
+  return (
+    <>
+      <button onClick={handleObjectUploadClose}>Show Object Uploader</button>
+      {fileName}
+      <ObjectUpload open={showObjectUpload} onClose={handleObjectUploadClose} onUpload={handleObjectUpload} />
+    </>
+  );
+}
 
 export default App;

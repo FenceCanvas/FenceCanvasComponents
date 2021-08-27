@@ -1,5 +1,5 @@
 import { Environment, OrbitControls, PerspectiveCamera } from '@react-three/drei';
-import React, { Suspense, useEffect } from 'react';
+import React, { Suspense } from 'react';
 import * as THREE from 'three';
 import {
 	Canvas,
@@ -23,10 +23,6 @@ const ObjectPreview = ({ objectPath }: ObjectPreviewProps): React.ReactElement =
 
 	const defaultCameraPosition: THREE.Vector3 = new THREE.Vector3(0, 0, 4);
 
-	useEffect(() => {
-		THREE.Object3D.DefaultUp = new THREE.Vector3(0, 0, 1);
-	}, []);
-
 	return (
 		<Canvas className={classes.canvas} onCreated={({ camera }) => camera.lookAt(0, 0, 0)}>
 			<Suspense fallback={null}>
@@ -35,9 +31,8 @@ const ObjectPreview = ({ objectPath }: ObjectPreviewProps): React.ReactElement =
 					near={1}
 					far={1000}
 					makeDefault
-					up={new THREE.Vector3(0, 0, 1)}
 				/>
-				<OrbitControls up={new THREE.Vector3(0, 1, 0)} enablePan enableZoom enableRotate />
+				<OrbitControls enablePan enableZoom enableRotate />
 				<ambientLight intensity={0.5} />
 				<spotLight intensity={0.8} position={[300, 300, 400]} />
 				<Environment preset='forest' background />
