@@ -1,10 +1,10 @@
-import { Drawer, createStyles, makeStyles, Theme, IconButton, List, ListItem, ListItemIcon, ListItemText, Typography } from '@material-ui/core';
+import { Drawer, createStyles, makeStyles, Theme, IconButton, List, ListItem, ListItemIcon, ListItemText, Box } from '@material-ui/core';
 import React from 'react';
 import clsx from 'clsx';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import { IListItem } from '../../../interface/listItem.interface';
-import { FENCE_CANVAS_RED } from '../../../App';
+import { FENCE_CANVAS_LIGHT_RED, FENCE_CANVAS_RED, FENCE_CANVAS_YELLOW } from '../../../App';
 
 const drawerWidth = 240;
 
@@ -39,8 +39,12 @@ const useStyles = makeStyles((theme: Theme) =>
       flexShrink: 0,
       whiteSpace: 'nowrap',
     },
-    paper: {
-        backgroundColor: FENCE_CANVAS_RED,
+    paperPrimary: {
+      backgroundColor: FENCE_CANVAS_RED,
+    },
+    paperSecondary: {
+      backgroundColor: FENCE_CANVAS_YELLOW,
+      color: `${FENCE_CANVAS_LIGHT_RED} !important`,
     },
     drawerOpen: {
       width: drawerWidth,
@@ -72,6 +76,24 @@ const useStyles = makeStyles((theme: Theme) =>
       flexGrow: 1,
       padding: theme.spacing(3),
     },
+    textColorLight: {
+      color: 'white',
+    },
+    textColorDark: {
+      color: FENCE_CANVAS_LIGHT_RED,
+    },
+    logo: {
+      width: '4rem',
+      height: 'auto',
+    },
+    toggleButtonContainer: {
+      display: 'flex',
+      flexDirection: 'row',
+      justifyContent: 'flex-end',
+      '&:hover': {
+        cursor: 'pointer',
+      },
+    }
   }),
 );
 
@@ -80,16 +102,23 @@ export interface SidebarProps {
     open: boolean;
     onClose: () => void;
     color: 'primary' | 'secondary';
+    logoSrc: string | undefined;
 }
 
-const Sidebar = ({ listItems, open, onClose, color }: SidebarProps): React.ReactElement => {
+const Sidebar = ({ listItems, open, onClose, color, logoSrc }: SidebarProps): React.ReactElement => {
     const classes = useStyles();
 
     const getListItems = (): React.ReactElement[] => {
         return listItems.map((i) => (
             <ListItem button key={i.text}>
-                <ListItemIcon style={{ color: 'white' }}>{i.icon}</ListItemIcon>
-                <ListItemText style={{ color: 'white' }} primary={i.text} />
+                <ListItemIcon className={clsx({
+                  [classes.textColorLight]: color === 'primary',
+                  [classes.textColorDark]: color === 'secondary',
+                })}>{i.icon}</ListItemIcon>
+                <ListItemText className={clsx({
+                  [classes.textColorLight]: color === 'primary',
+                  [classes.textColorDark]: color === 'secondary',
+                })} primary={i.text} />
             </ListItem>
         ));
     };
@@ -97,33 +126,37 @@ const Sidebar = ({ listItems, open, onClose, color }: SidebarProps): React.React
     return (
         <Drawer
             variant='permanent'
-            color={color}
             className={clsx(classes.drawer, {
                 [classes.drawerOpen]: open,
                 [classes.drawerClose]: !open,
               })}
             classes={{
-                paper: clsx(classes.paper, {
+                paper: clsx({
                     [classes.drawerOpen]: open,
                     [classes.drawerClose]: !open,
+                    [classes.paperPrimary]: color === 'primary',
+                    [classes.paperSecondary]: color === 'secondary',
                 }),
             }}
         >
             <div className={classes.toolbar}>
-                <Typography style={{ color: 'white' }}>
-                    LOGO
-                </Typography>
+              <div style={{ width: '100%', display: 'flex', flexDirection: 'row', justifyContent: 'center' }}>
+                <img src={logoSrc} className={classes.logo} alt='logo' />
+              </div>
             </div>
             <div style={{ flexGrow: 1 }}>
                 <List>
                 {getListItems()}
                 </List>
             </div>
-            <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-end' }}>
-                <IconButton style={{ color: 'white' }} onClick={onClose}>
+            <Box className={classes.toggleButtonContainer} onClick={onClose}>
+                <IconButton className={clsx({
+                  [classes.textColorLight]: color === 'primary',
+                  [classes.textColorDark]: color === 'secondary',
+                })}>
                     {!open ? <ChevronRightIcon /> : <ChevronLeftIcon />}
                 </IconButton>
-            </div>
+            </Box>
         </Drawer>
     );
 };

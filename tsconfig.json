@@ -24,6 +24,8 @@
     "noEmit": true
   },
   "include": [
-    "src/lib/**/*"
+    "src/lib/**/*",
+    "src/assets/**/*",
+    "src/react-app-env.d.ts"
   ]
 }
