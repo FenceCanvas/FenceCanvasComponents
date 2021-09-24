@@ -5,7 +5,6 @@ import { Button, createTheme, CssBaseline, FormLabel, Switch, Theme, ThemeOption
 import { IListItem } from './interface/listItem.interface';
 import HomeIcon from '@material-ui/icons/Home';
 import Sidebar from './lib/components/Sidebar/Sidebar';
-import Logo from './assets/images/placeholder_fence_logo.jpg';
 
 const sidebarListItems: IListItem[] = [
   {
@@ -40,7 +39,7 @@ const lightTheme: ThemeOptions = {
 		},
 		secondary: {
 			main: FENCE_CANVAS_DARK_YELLOW,
-      contrastText: 'black',
+      contrastText: '#000',
 		},
 	},
 	spacing: 8,
@@ -80,7 +79,7 @@ const App = (): React.ReactElement => {
     <ThemeProvider theme={appliedTheme}>
       <div style={{ display: 'flex' }}>
         <CssBaseline />
-        <Sidebar color={theme === 'light' ? 'primary' : 'secondary'} open={sidebarOpen} listItems={sidebarListItems} onClose={handleSidebarToggle} logoSrc={Logo} />
+        <Sidebar color={theme === 'light' ? 'primary' : 'secondary'} open={sidebarOpen} listItems={sidebarListItems} onClose={handleSidebarToggle} logoSrc={undefined} />
         <main style={{ flexGrow: 1, padding: '2rem' }}>
           <FormLabel color='primary'>Dark Mode</FormLabel>
           <Switch color='primary' onChange={handleDarkModeSwitchChange} checked={theme === 'dark'} name='darkMode' />

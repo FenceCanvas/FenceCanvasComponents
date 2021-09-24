@@ -4,5 +4,5 @@ export interface LoaderProps {
     objPath: string;
     position: [number, number, number] | THREE.Vector3;
 }
-declare const Loader: ({ objPath, position }: LoaderProps) => React.ReactElement;
-export default Loader;
+declare const ObjLoader: ({ objPath, position }: LoaderProps) => React.ReactElement;
+export default ObjLoader;

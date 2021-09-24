@@ -5,7 +5,8 @@ import {
 	Canvas,
 } from '@react-three/fiber';
 import { createStyles, makeStyles } from '@material-ui/core';
-import Loader from '../Loader';
+import GltfLoader from '../GLTFLoader';
+import ObjLoader from '../OBJLoader';
 
 const useStyles = makeStyles(() =>
 	createStyles({
@@ -38,7 +39,11 @@ const ObjectPreview = ({ objectPath }: ObjectPreviewProps): React.ReactElement =
 				<Environment preset='forest' background />
 				{(objectPath && objectPath !== '') && (
 					<Suspense fallback={null}>
-						<Loader objPath={objectPath} position={[0, 0, 0]} />
+						{objectPath.split('.').pop()?.toLowerCase() === 'gltf' ? (
+							<GltfLoader objPath={objectPath} position={[0, 0, 0]} />
+						) : (
+							<ObjLoader objPath={objectPath} position={[0, 0, 0]} />
+						)}
 					</Suspense>
 				)}
 			</Suspense>

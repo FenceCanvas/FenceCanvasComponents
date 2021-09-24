@@ -8,7 +8,8 @@ export interface LoaderProps {
   position: [number, number, number] | THREE.Vector3
 }
 
-const Loader = ({ objPath, position }: LoaderProps): React.ReactElement => {
+const GltfLoader = ({ objPath, position }: LoaderProps): React.ReactElement => {
+
 	const gltf: GLTF & ObjectMap = useLoader(GLTFLoader, objPath);
 
 	return (
@@ -16,4 +17,4 @@ const Loader = ({ objPath, position }: LoaderProps): React.ReactElement => {
 	);
 };
 
-export default Loader;
+export default GltfLoader;

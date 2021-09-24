@@ -11,7 +11,7 @@
     "Canvas",
     "FenceCanvas"
   ],
-  "version": "1.0.4",
+  "version": "1.0.7",
   "private": false,
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -44,7 +44,9 @@
     "start": "react-scripts start",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "build": "rm -rf dist && NODE_ENV=production babel src/lib --out-dir dist --copy-files --extensions '.ts,.tsx' && tsc --project tsconfig.build.json"
+    "build": "rm -rf dist && npm run build:esm && npm run build:cjs",
+    "build:esm": "tsc --project tsconfig.build.json",
+    "build:cjs": "tsc --project tsconfig.build.json --module commonjs --outDir dist/cjs"
   },
   "eslintConfig": {
     "extends": [
