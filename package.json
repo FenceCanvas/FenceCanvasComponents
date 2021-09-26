@@ -11,9 +11,10 @@
     "Canvas",
     "FenceCanvas"
   ],
-  "version": "1.0.7",
+  "version": "1.0.10",
   "private": false,
   "main": "dist/index.js",
+  "module": "dist/index.js",
   "types": "dist/index.d.ts",
   "repository": {
     "type": "git",
